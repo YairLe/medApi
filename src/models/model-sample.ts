@@ -1,4 +1,4 @@
-import { Client, QueryResult } from "pg";
+import { PoolClient, QueryResult } from "pg";
 import * as dbUtil from "./../utils/dbUtil";
 import logger = require("./../utils/logger");
 const transactionSuccess: string = "transaction success";
@@ -28,7 +28,7 @@ export const sampleTransactionModel = async () => {
   let multiSql = "INSERT INTO TEST (testcolumn) VALUES ($1)";
   let singleData: string[][] = [];
   let multiData: string[][] = [["typescript"], ["is"], ["fun"]];
-  let client: Client = await dbUtil.getTransaction();
+  let client: PoolClient = await dbUtil.getTransaction();
   try {
     await dbUtil.sqlExecSingleRow(client, singleSql, singleData);
     await dbUtil.sqlExecMultipleRows(client, multiSql, multiData);
